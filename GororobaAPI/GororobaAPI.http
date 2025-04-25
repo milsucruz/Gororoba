@@ -1,0 +1,6 @@
+@GororobaAPI_HostAddress = http://localhost:5004
+
+GET {{GororobaAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
