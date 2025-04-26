@@ -13,7 +13,7 @@ namespace GororobaAPI.Services
             _httpClient = httpClient;
             _config = config;
         }
-        public async Task<List<RecipesModel>> SearchByIngredient(string ingredient)
+        public async Task<List<RecipesSearchModel>> SearchByIngredient(string ingredient)
         {
             var apiKey = _config["SpoonacularApi:ApiKey"];
             var url = $"https://api.spoonacular.com/recipes/findByIngredients?ingredients={ingredient}&apiKey={apiKey}";
@@ -23,7 +23,7 @@ namespace GororobaAPI.Services
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<List<RecipesModel>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new();
+                return JsonSerializer.Deserialize<List<RecipesSearchModel>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new();
             }
             else
             {
