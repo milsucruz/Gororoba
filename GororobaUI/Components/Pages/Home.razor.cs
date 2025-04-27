@@ -1,26 +1,43 @@
-﻿namespace GororobaUI.Components.Pages
+﻿using GororobaUI.Models;
+using Microsoft.AspNetCore.Components;
+
+namespace GororobaUI.Components.Pages
 {
     public partial class Home
     {
-        private string searchQuery;
+        [Inject]
+        private IConfiguration _config { get; set; }
+
+        private string searchQuery = string.Empty;
+        private List<RecipesSearchModel> recipes = new();
 
         private async Task SearchRecipes()
         {
-            if (!string.IsNullOrEmpty(searchQuery))
+            if (!string.IsNullOrWhiteSpace(searchQuery))
             {
-                // Aqui você pode fazer a chamada à sua API ou realizar a lógica de pesquisa com o valor da searchQuery.
-                // Exemplo de como você pode exibir o valor para debugging
-                Console.WriteLine($"Buscando por: {searchQuery}");
+                try
+                {
+                    var apiKey = _config["SpoonacularApi:ApiKey"];
+                    var url = $"https://api.spoonacular.com/recipes/complexSearch?query={searchQuery}&number=12&apiKey={apiKey}";
 
-                // Aqui você pode colocar a lógica de chamada para a API de receitas, passando o valor de searchQuery.
-                // Exemplo de chamada à API usando HttpClient:
-                // var response = await Http.GetFromJsonAsync<List<Recipe>>($"api/recipes?search={searchQuery}");
+                    var result = await Http.GetFromJsonAsync<RecipesSearchResult>(url);
+
+                    recipes = result?.Results ?? new List<RecipesSearchModel>();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Erro ao buscar receitas: {ex.Message}");
+                }
             }
             else
             {
-                // Caso o campo esteja vazio, você pode exibir uma mensagem ou realizar outra ação.
                 Console.WriteLine("Digite algo para pesquisar.");
             }
+        }
+
+        public class RecipesSearchResult
+        {
+            public List<RecipesSearchModel> Results { get; set; } = new();
         }
     }
 }
