@@ -1,32 +1,13 @@
-﻿@page "/receitas"
+﻿@page "/"
 @inject RecipesService RecipesService
 
-<MudTextField @bind-Value="ingredients" Label="ingredients" Variant="Variant.Filled" Margin="Margin.Dense" />
-<MudButton OnClick="Buscar" Color="Color.Primary" Variant="Variant.Filled" Class="mt-3">Buscar</MudButton>
-
-@if (recipes != null)
-{
-    <MudGrid>
-        @foreach (var recipe in recipes)
-        {
-            <MudItem xs="12" sm="6" md="4">
-                <MudCard>
-                    <MudCardMedia Image="@recipe.Image" Title="@recipe.Title" Height="200" />
-                    <MudCardContent>
-                        <MudText Typo="Typo.h6">@recipe.Title</MudText>
-                    </MudCardContent>
-                </MudCard>
-            </MudItem>
-        }
-    </MudGrid>
-}
+<div class="MainCard">
+    <img class="CardImg" src="Assets/CardCover.png"/>
+    <div class="CardText">
+        <h1>Bem-vindo ao Gororoba's</h1>
+        <span>Ache suas receitas preferidas!</span>
+    </div>
+</div>
 
 @code {
-    private string ingredients = string.Empty;
-    private List<RecipesSearchModel>? recipes;
-
-    private async Task Buscar()
-    {
-        recipes = await RecipesService.SearchRecipes(ingredients);
-    }
 }

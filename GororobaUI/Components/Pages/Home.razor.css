@@ -1,0 +1,24 @@
+﻿.MainCard {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: #E1E1E6;
+    border-radius: 8px;
+    margin: 165px auto 0;
+    width: 80%;
+    height: 200px;
+    padding: 80px;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+
+.CardImg {
+    position: absolute;
+    top: 45px;
+    left: 80px;
+    transform: scale(0.9);
+
+}
+
+.CardText {
+
+}
