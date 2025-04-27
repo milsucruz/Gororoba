@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject RecipesService RecipesService
+@inject HttpClient Http
 
 <div class="MainCard">
     <img class="CardImg" src="Assets/CardCover.png"/>
@@ -8,6 +9,15 @@
         <span>Ache suas receitas preferidas!</span>
     </div>
 </div>
+
+<div class="SearchMenu">
+        <MudTextField @bind-Value="searchQuery"
+                      Label="Pesquise sua receita"
+                      Variant="Variant.Outlined"
+                      />
+
+    <button>Pesquisar <MudIcon Icon="@Icons.Material.Filled.Search" Title="Pesquisar" /></button>
+ </div>
 
 @code {
 }
