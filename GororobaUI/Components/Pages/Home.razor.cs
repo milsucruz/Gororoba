@@ -18,7 +18,7 @@ namespace GororobaUI.Components.Pages
                 try
                 {
                     var apiKey = _config["SpoonacularApi:ApiKey"];
-                    var url = $"https://api.spoonacular.com/recipes/complexSearch?query={searchQuery}&number=12&apiKey={apiKey}";
+                    var url = $"https://api.spoonacular.com/recipes/complexSearch?apiKey={apiKey}&query={searchQuery}&number=9";
 
                     var result = await Http.GetFromJsonAsync<RecipesSearchResult>(url);
 
@@ -31,6 +31,7 @@ namespace GororobaUI.Components.Pages
             }
             else
             {
+                recipes.Clear();
                 Console.WriteLine("Digite algo para pesquisar.");
             }
         }
