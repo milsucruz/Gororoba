@@ -1,4 +1,4 @@
-﻿.MainCard {
+﻿.MainBanner {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -12,12 +12,11 @@
     box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 }
 
-.CardImg {
+.BannerImg {
     position: absolute;
     top: 45px;
     left: 80px;
     transform: scale(0.9);
-
 }
 
 .SearchMenu {

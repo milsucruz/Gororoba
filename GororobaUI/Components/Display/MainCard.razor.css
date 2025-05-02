@@ -1,0 +1,21 @@
+﻿.Card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    min-height: 360px;
+    background: #fff;
+}
+
+.Content {
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    height: 100%;
+    padding: 10px;
+}
+
+nav {
+}
