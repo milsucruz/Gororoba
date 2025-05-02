@@ -26,21 +26,12 @@
 <div class="Grid">
     @if (recipes != null)
     {
-        if(recipes.Count == 0)
+        if(recipes.Count > 0)
         {
             <div class="Cards">
-                <MainCard />
                 @foreach (var recipe in recipes)
                 {
-                    @* <MudItem>
-                        <MudCard>
-                            <MudCardMedia Image="@recipe.Image" Height="200" />
-                            <MudCardContent>
-                                <MudText Typo="Typo.h6" Align="Align.Center">@recipe.Title</MudText>
-                            </MudCardContent>
-                            <h6>@recipe.Title</h6>
-                        </MudCard>
-                    </MudItem> *@
+                    <MainCard ImageUrl="@recipe.Image" RecipeTitle="@recipe.Title"/>
                 }
             </div>
         }
@@ -52,5 +43,4 @@
             </div>
         }
     }
-
  </div>

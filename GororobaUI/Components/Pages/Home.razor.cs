@@ -1,5 +1,6 @@
 ﻿using GororobaUI.Models;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace GororobaUI.Components.Pages
 {
@@ -8,7 +9,11 @@ namespace GororobaUI.Components.Pages
         [Inject]
         private IConfiguration _config { get; set; }
 
+        [Inject] 
+        public IDialogService DialogService { get; set; } = default!;
+
         private string searchQuery = string.Empty;
+
         private List<RecipesSearchModel> recipes = new();
 
         private async Task SearchRecipes()
@@ -18,7 +23,7 @@ namespace GororobaUI.Components.Pages
                 try
                 {
                     var apiKey = _config["SpoonacularApi:ApiKey"];
-                    var url = $"https://api.spoonacular.com/recipes/complexSearch?apiKey={apiKey}&query={searchQuery}&number=9";
+                    var url = $"https://api.spoonacular.com/recipes/complexSearch?apiKey={apiKey}&query={searchQuery}&number=2";
 
                     var result = await Http.GetFromJsonAsync<RecipesSearchResult>(url);
 
@@ -26,13 +31,13 @@ namespace GororobaUI.Components.Pages
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Erro ao buscar receitas: {ex.Message}");
+                    Console.WriteLine($"Error when searching for recipes: {ex.Message}");
                 }
             }
             else
             {
                 recipes.Clear();
-                Console.WriteLine("Digite algo para pesquisar.");
+                Console.WriteLine("Type in something to search for.");
             }
         }
 
