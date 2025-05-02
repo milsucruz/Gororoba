@@ -31,7 +31,7 @@
             <div class="Cards">
                 @foreach (var recipe in recipes)
                 {
-                    <MainCard ImageUrl="@recipe.Image" RecipeTitle="@recipe.Title"/>
+                    <MainCard ImageUrl="@recipe.Image" RecipeTitle="@recipe.Title" RecipeId="@recipe.Id"/>
                 }
             </div>
         }

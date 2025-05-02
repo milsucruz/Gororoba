@@ -1,0 +1,55 @@
+﻿@using GororobaUI.Models
+@rendermode InteractiveServer
+@inject HttpClient Http
+@inject IDialogService DialogService
+
+@code {
+    [Inject]
+    private IConfiguration _config { get; set; }
+
+    [CascadingParameter] 
+    IMudDialogInstance MudDialog { get; set; }
+
+    [Parameter] 
+    public int RecipeId { get; set; }
+
+    private RecipeDetailsModel recipe;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var apiKey = _config["SpoonacularApi:ApiKey"];
+
+        recipe = await Http.GetFromJsonAsync<RecipeDetailsModel>($"https://api.spoonacular.com/recipes/{RecipeId}/information?apiKey={apiKey}");
+    }
+
+}
+
+@if(recipe is null) {
+    <MudDialog>
+        <DialogContent>
+            <MudProgressCircular Indeterminate="true" Color="Color.Primary" />
+            <p>Loading recipe details...</p>
+        </DialogContent>
+    </MudDialog>
+}
+else
+{
+    <MudDialog>
+            <TitleContent>@recipe.Title</TitleContent>
+            <DialogContent>
+                <img src="@recipe.Image" alt="Image" width="100%" />
+                <p><b>Tempo de preparo:</b> @recipe.ReadyInMinutes min</p>
+                <p><b>Porções:</b> @recipe.Servings</p>
+                <p>@((new MarkupString(recipe.Summary)))</p>
+                <p><b>Ingredientes:</b></p>
+                <ul>
+                    @foreach (var ing in recipe.ExtendedIngredients)
+                    {
+                        <li>@ing.Original</li>
+                    }
+                </ul>
+            <p><b>Instruções:</b></p>
+            @((MarkupString)recipe.Instructions)
+        </DialogContent>
+    </MudDialog>
+}

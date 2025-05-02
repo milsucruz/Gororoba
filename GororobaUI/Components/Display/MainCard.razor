@@ -1,10 +1,12 @@
-﻿<div class="Card">
+﻿@inject IDialogService DialogService
+
+<div class="Card">
     <img class="BannerImg" src="@ImageUrl" alt="Recipe image" />
 
     <div class="Content">
         <h5>@RecipeTitle</h5>
 
-        <MudButton Color="Color.Primary" Size="Size.Large" Variant="Variant.Filled">
+        <MudButton Color="Color.Primary" Size="Size.Large" Variant="Variant.Filled" OnClick="ShowRecipeDetails">
             View recipe
         </MudButton>
     </div>

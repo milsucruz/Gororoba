@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using GororobaUI.Components.Modals;
+using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace GororobaUI.Components.Display
 {
@@ -12,5 +14,14 @@ namespace GororobaUI.Components.Display
 
         [Parameter]
         public int RecipeId { get; set; }
+
+        public async Task ShowRecipeDetails()
+        {
+            var options =  new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, FullWidth = true };
+
+            var parameters = new DialogParameters { ["RecipeId"] = RecipeId };
+
+            await DialogService.ShowAsync<RecipeDetailsModal>(RecipeTitle, parameters, options);
+        }
     }
 }
