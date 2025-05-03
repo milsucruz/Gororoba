@@ -1,4 +1,5 @@
-﻿using GororobaAPI.Models;
+﻿using GororobaAPI.DTOs.Requests;
+using GororobaAPI.DTOs.Responses;
 using System.Text.Json;
 
 namespace GororobaAPI.Services
@@ -13,17 +14,40 @@ namespace GororobaAPI.Services
             _httpClient = httpClient;
             _config = config;
         }
-        public async Task<List<RecipesSearchModel>> SearchByIngredient(string ingredient)
+        public async Task<List<RecipesSearchDto>> GetRecipesByIngredient(string ingredient)
         {
             var apiKey = _config["SpoonacularApi:ApiKey"];
-            var url = $"https://api.spoonacular.com/recipes/findByIngredients?ingredients={ingredient}&apiKey={apiKey}";
+            var url = $"https://api.spoonacular.com/recipes/complexSearch?apiKey={apiKey}&query={ingredient}&number=2";
 
             var response = await _httpClient.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<List<RecipesSearchModel>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new();
+                var result = JsonSerializer.Deserialize<RecipesSearchResultDto>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                return result?.Results ?? new();
+            }
+            else
+            {
+                throw new Exception("Failed to fetch data from Spoonacular API");
+            }
+        }
+
+        public async Task<RecipeDetailsDto> GetRecipeDetails(int recipeId)
+        {
+            var apiKey = _config["SpoonacularApi:ApiKey"];
+
+            var url = $"https://api.spoonacular.com/recipes/{recipeId}/information?apiKey={apiKey}";
+
+            var response = await _httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+
+                var result = JsonSerializer.Deserialize<RecipeDetailsDto>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                return result;
             }
             else
             {
