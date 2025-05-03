@@ -23,7 +23,7 @@ namespace GororobaUI.Components.Pages
                 try
                 {
                     var apiKey = _config["SpoonacularApi:ApiKey"];
-                    var url = $"https://api.spoonacular.com/recipes/complexSearch?apiKey={apiKey}&query={searchQuery}&number=2";
+                    var url = $"https://api.spoonacular.com/recipes/complexSearch?apiKey={apiKey}&query={searchQuery}&number=9";
 
                     var result = await Http.GetFromJsonAsync<RecipesSearchResult>(url);
 

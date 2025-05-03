@@ -51,8 +51,6 @@ img{
 
 .MainContent {
     display: flex;
-    justify-content: center;
-    width: 100%;
     gap: 50px;
     color: #303030;
     margin-bottom: 30px;
@@ -72,10 +70,12 @@ img{
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 50%;
 }
 
-.Directions {
+.Instructions {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 50%;
 }
