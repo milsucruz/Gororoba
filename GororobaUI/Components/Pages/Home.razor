@@ -29,6 +29,7 @@
         if(recipes.Count > 0)
         {
             <div class="Cards">
+                @* <MainCard ImageUrl="https://img.spoonacular.com/recipes/716429-556x370.jpg" RecipeTitle="Home Made Dry-Aged Sirloin Steak with Cheesy Roast Fingerling Potatoes" RecipeId="716429" /> *@
                 @foreach (var recipe in recipes)
                 {
                     <MainCard ImageUrl="@recipe.Image" RecipeTitle="@recipe.Title" RecipeId="@recipe.Id"/>

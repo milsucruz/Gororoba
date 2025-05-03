@@ -3,53 +3,49 @@
 @inject HttpClient Http
 @inject IDialogService DialogService
 
-@code {
-    [Inject]
-    private IConfiguration _config { get; set; }
-
-    [CascadingParameter] 
-    IMudDialogInstance MudDialog { get; set; }
-
-    [Parameter] 
-    public int RecipeId { get; set; }
-
-    private RecipeDetailsModel recipe;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var apiKey = _config["SpoonacularApi:ApiKey"];
-
-        recipe = await Http.GetFromJsonAsync<RecipeDetailsModel>($"https://api.spoonacular.com/recipes/{RecipeId}/information?apiKey={apiKey}");
-    }
-
-}
-
-@if(recipe is null) {
-    <MudDialog>
+@if(recipe is null)
+{
+     <MudDialog>
         <DialogContent>
-            <MudProgressCircular Indeterminate="true" Color="Color.Primary" />
-            <p>Loading recipe details...</p>
+            <div class="Loading">
+                <p>Loading recipe details...</p>
+                <MudProgressCircular Indeterminate="true" Color="Color.Primary" />
+            </div>
         </DialogContent>
-    </MudDialog>
+    </MudDialog> 
 }
 else
 {
-    <MudDialog>
-            <TitleContent>@recipe.Title</TitleContent>
+     <MudDialog>
             <DialogContent>
-                <img src="@recipe.Image" alt="Image" width="100%" />
-                <p><b>Tempo de preparo:</b> @recipe.ReadyInMinutes min</p>
-                <p><b>Porções:</b> @recipe.Servings</p>
-                <p>@((new MarkupString(recipe.Summary)))</p>
-                <p><b>Ingredientes:</b></p>
-                <ul>
-                    @foreach (var ing in recipe.ExtendedIngredients)
+            <div class="ContentClass">
+                <h3>@recipe.Title</h3>
+                <img src="@recipe.Image" alt="Image"/>
+                <div class="BasicInfos">
+                    <span>Prep time: @recipe.ReadyInMinutes min</span>
+                    @if(@recipe.CookingMinutes != null)
                     {
-                        <li>@ing.Original</li>
+                        <span>Cooking time: @recipe.CookingMinutes min</span>
                     }
-                </ul>
-            <p><b>Instruções:</b></p>
-            @((MarkupString)recipe.Instructions)
+                    <span>Servings: @recipe.Servings</span>
+                </div>
+                <p class="Sumarry">@((new MarkupString(recipe.Summary)))</p>
+                <div class="MainContent">
+                    <div class="Ingredients">
+                        <span>Ingredients:</span>
+                        <ul>
+                            @foreach (var ing in recipe.ExtendedIngredients)
+                            {
+                                <li>@ing.Original</li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="Instructions">
+                        <span>Instructions:</span>
+                        @((MarkupString)recipe.Instructions)
+                    </div>
+                </div>
+            </div>
         </DialogContent>
-    </MudDialog>
+    </MudDialog> 
 }

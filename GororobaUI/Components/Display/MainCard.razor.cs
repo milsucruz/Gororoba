@@ -17,11 +17,11 @@ namespace GororobaUI.Components.Display
 
         public async Task ShowRecipeDetails()
         {
-            var options =  new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, FullWidth = true };
+            var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Medium, FullWidth = true };
 
             var parameters = new DialogParameters { ["RecipeId"] = RecipeId };
 
-            await DialogService.ShowAsync<RecipeDetailsModal>(RecipeTitle, parameters, options);
+            await DialogService.ShowAsync<RecipeDetailsModal>("", parameters, options);
         }
     }
 }
