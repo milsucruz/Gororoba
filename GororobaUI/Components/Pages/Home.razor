@@ -1,7 +1,6 @@
 ﻿@page "/"
 @rendermode InteractiveServer
 @inject HttpClient Http
-@inject RecipesService RecipesService
 
 <div class="MainBanner">
     <img class="BannerImg" src="Assets/BannerCover.png" />
@@ -17,7 +16,7 @@
     Variant="Variant.Outlined"
     AdornmentIcon="@Icons.Material.Filled.Search" />
 
-    <MudButton Color="Color.Primary" OnClick="SearchRecipes" Size="Size.Large" Variant="Variant.Filled" Style="height: 56px">
+    <MudButton Color="Color.Primary" OnClick="GetRecipesByIngredient" Size="Size.Large" Variant="Variant.Filled" Style="height: 56px">
         Search
         <MudIcon Icon="@Icons.Material.Filled.Search" Title="Search" />
     </MudButton>
@@ -29,7 +28,6 @@
         if(recipes.Count > 0)
         {
             <div class="Cards">
-                @* <MainCard ImageUrl="https://img.spoonacular.com/recipes/716429-556x370.jpg" RecipeTitle="Home Made Dry-Aged Sirloin Steak with Cheesy Roast Fingerling Potatoes" RecipeId="716429" /> *@
                 @foreach (var recipe in recipes)
                 {
                     <MainCard ImageUrl="@recipe.Image" RecipeTitle="@recipe.Title" RecipeId="@recipe.Id"/>

@@ -1,6 +1,6 @@
-﻿namespace GororobaUI.Models
+﻿namespace GororobaUI.DTOs
 {
-    public class RecipesSearchModel
+    public class RecipesSearchDto
     {
         public int Id { get; set; }
 

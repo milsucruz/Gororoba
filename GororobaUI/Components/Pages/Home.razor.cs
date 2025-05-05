@@ -1,4 +1,4 @@
-﻿using GororobaUI.Models;
+﻿using GororobaUI.DTOs;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -7,27 +7,21 @@ namespace GororobaUI.Components.Pages
     public partial class Home
     {
         [Inject]
-        private IConfiguration _config { get; set; }
-
-        [Inject] 
         public IDialogService DialogService { get; set; } = default!;
 
         private string searchQuery = string.Empty;
 
-        private List<RecipesSearchModel> recipes = new();
+        private List<RecipesSearchDto> recipes = new();
 
-        private async Task SearchRecipes()
+        private async Task GetRecipesByIngredient()
         {
             if (!string.IsNullOrWhiteSpace(searchQuery))
             {
                 try
                 {
-                    var apiKey = _config["SpoonacularApi:ApiKey"];
-                    var url = $"https://api.spoonacular.com/recipes/complexSearch?apiKey={apiKey}&query={searchQuery}&number=9";
+                    var url = $"/api/gororoba/search?query={searchQuery}";
 
-                    var result = await Http.GetFromJsonAsync<RecipesSearchResult>(url);
-
-                    recipes = result?.Results ?? new List<RecipesSearchModel>();
+                    recipes = await Http.GetFromJsonAsync<List<RecipesSearchDto>>(url) ?? new();
                 }
                 catch (Exception ex)
                 {
@@ -39,11 +33,6 @@ namespace GororobaUI.Components.Pages
                 recipes.Clear();
                 Console.WriteLine("Type in something to search for.");
             }
-        }
-
-        public class RecipesSearchResult
-        {
-            public List<RecipesSearchModel> Results { get; set; } = new();
         }
     }
 }

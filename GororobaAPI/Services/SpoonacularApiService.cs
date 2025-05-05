@@ -14,6 +14,7 @@ namespace GororobaAPI.Services
             _httpClient = httpClient;
             _config = config;
         }
+
         public async Task<List<RecipesSearchDto>> GetRecipesByIngredient(string ingredient)
         {
             var apiKey = _config["SpoonacularApi:ApiKey"];

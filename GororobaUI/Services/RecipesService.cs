@@ -1,4 +1,5 @@
-﻿using GororobaUI.Models;
+﻿using GororobaUI.DTOs.Requests;
+using GororobaUI.Models;
 
 namespace GororobaUI.Services
 {
@@ -11,10 +12,10 @@ namespace GororobaUI.Services
             _http = http;
         }
 
-        public async Task<List<RecipesSearchModel>> SearchRecipes(string ingredients)
+        public async Task<List<RecipesSearchDto>> SearchRecipes(string ingredients)
         {
-            var response = await _http.GetFromJsonAsync<List<RecipesSearchModel>>($"api/recipes/search?ingredients={ingredients}");
-            return response ?? new List<RecipesSearchModel>();
+            var response = await _http.GetFromJsonAsync<List<RecipesSearchDto>>($"api/recipes/search?ingredients={ingredients}");
+            return response ?? new List<RecipesSearchDto>();
         }
     }
 

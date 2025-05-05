@@ -14,13 +14,15 @@ namespace GororobaAPI.Controllers
             _service = service;
         }
 
-        [HttpGet("search/{ingredientName}")]
-        public async Task<IActionResult> GetRecipesByIngredient([FromRoute] string ingredientName)
+        [HttpGet("search")]
+        public async Task<IActionResult> GetRecipesByIngredient([FromQuery] string query)
         {
-            if (string.IsNullOrWhiteSpace(ingredientName))
+            if (string.IsNullOrWhiteSpace(query))
                 return BadRequest("Search cannot be empty");
 
-            var recipes = await _service.GetRecipesByIngredient(ingredientName);
+            var sanitizedQuery = query.Trim().ToLower();
+
+            var recipes = await _service.GetRecipesByIngredient(sanitizedQuery);
             return Ok(recipes);
         }
 
