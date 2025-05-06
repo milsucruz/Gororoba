@@ -1,5 +1,4 @@
-﻿using GororobaUI.DTOs.Requests;
-using GororobaUI.Models;
+﻿using GororobaUI.DTOs;
 
 namespace GororobaUI.Services
 {

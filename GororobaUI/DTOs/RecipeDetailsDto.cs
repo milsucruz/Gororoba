@@ -1,6 +1,6 @@
-﻿namespace GororobaUI.Models
+﻿namespace GororobaUI.DTOs
 {
-    public class RecipeDetailsModel
+    public class RecipeDetailsDto
     {
         public int Id { get; set; }
 
@@ -18,12 +18,6 @@
 
         public string Instructions { get; set; }
 
-        public List<Ingredient> ExtendedIngredients { get; set; }
-
-        public class Ingredient
-        {
-            public string Name { get; set; }
-            public string Original { get; set; }
-        }
+        public List<IngredientsDto> ExtendedIngredients { get; set; } = new();
     }
 }
