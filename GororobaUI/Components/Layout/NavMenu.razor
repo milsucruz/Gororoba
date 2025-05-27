@@ -1,30 +1,55 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">GororobaUI</a>
-    </div>
+﻿@rendermode InteractiveServer
+@inject MenuStateService MenuState
+@inject NavigationManager NavigationManager
+
+<div class="navigation @(MenuState.IsCollapsed ? "active" : "")">
+    <ul>
+        <li class="@GetActiveClass("")">
+            <a href="">
+                <span class="iconSpan"><i class="bi bi-house"></i></span>
+                <span class="btnNav">Home</span>
+            </a>
+        </li>
+
+        <li class="@GetActiveClass("supplier")">
+            <a href="supplier">
+                <span class="iconSpan"><i class="bi bi-truck"></i></span>
+                <span class="btnNav">Fornecedores</span>
+            </a>
+        </li>
+
+        <li class="@GetActiveClass("funcionarios")">
+            <a href="funcionarios">
+                <span class="iconSpan"><i class="bi bi-person-square"></i></span>
+                <span class="btnNav">Funcionários</span>
+            </a>
+        </li>
+    </ul>
 </div>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+@code {
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += (_, __) => InvokeAsync(StateHasChanged);
+        MenuState.OnChange += StateHasChanged;
+    }
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
+    private Task OnMenuChanged()
+    {
+        InvokeAsync(StateHasChanged);
+        return Task.CompletedTask;
+    }
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
+    private string GetActiveClass(string href)
+    {
+        var currentUri = NavigationManager.Uri;
+        var relativePath = NavigationManager.ToBaseRelativePath(currentUri).TrimEnd('/');
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div>
-    </nav>
-</div>
+        if (string.IsNullOrWhiteSpace(relativePath) && string.IsNullOrWhiteSpace(href))
+            return "hovered";
 
+        return relativePath.Equals(href.TrimEnd('/'), StringComparison.OrdinalIgnoreCase)
+            ? "hovered"
+            : "";
+    }
+}

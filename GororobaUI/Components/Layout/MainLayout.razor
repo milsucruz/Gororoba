@@ -1,9 +1,11 @@
 ﻿@inherits LayoutComponentBase
+@inject MenuStateService MenuState
 
 <MudProviders />
 
 <div class="page">
-    <main>
+    <NavMenu />
+    <main class="@(MenuState.IsCollapsed ? "active" : "")";>
         <Header/>
 
         <article class="content px-4">
@@ -11,3 +13,16 @@
         </article>
     </main>
 </div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        MenuState.OnChange += StateHasChanged;
+    }
+
+    private Task OnMenuChanged()
+    {
+        InvokeAsync(StateHasChanged);
+        return Task.CompletedTask;
+    }
+}
