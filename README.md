@@ -4,7 +4,7 @@
 > ## About 📖
 > 
 > ### Gororoba 🍔
-> This is a full stack application that allows users to search for recipes quickly and efficiently. The platform consumes data from the external Spoonacular API and is composed of a frontend built with Blazor and MudBlazor, a backend using ASP.NET Core Web API, and a SQL database.
+> This is a full stack application that allows users to search for recipes quickly and efficiently. The platform consumes data from the external Spoonacular API and is composed of a frontend built with Angular, a backend using ASP.NET Core Web API, and a SQL database.
 >
 > O projeto consiste em uma página de uma cafeteria delivery! A aplicação permite a escolha dos produtos desejados, sua quantidade e também conta com um sistema de pagamento fictício!
 >
