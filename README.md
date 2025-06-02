@@ -10,9 +10,7 @@
 >
 > ## Technologies Used 💻
 > Frontend:
->> [Blazor](https://dotnet.microsoft.com/pt-br/apps/aspnet/web-apps/blazor)
->
->> [MudBlazor](https://mudblazor.com/)
+>> [Angular](https://angular.dev/)
 >
 > Backend:
 >> [ASP.NET Core Web API](https://learn.microsoft.com/pt-br/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio)
