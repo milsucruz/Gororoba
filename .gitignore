@@ -486,3 +486,21 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Build output
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Angular cache
+.angular/
+
+# Environment 
+src/environments/environment.local.ts
+
+*.tmp
+
+proxy.conf.json

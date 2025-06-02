@@ -1,0 +1,37 @@
+<div class="MainBanner">
+  <img class="BannerImg" src="BannerCover.png" />
+  <div class="MainTitle">
+    <h1>Welcome to Gororoba</h1>
+    <span>Find your favorite recipes!</span>
+  </div>
+</div>
+
+<div class="SearchMenu">
+  <input
+    [formControl]="searchControl"
+    type="text"
+    placeholder="Find your recipe"
+  />
+  <button (click)="GetRecipesByIngredient()">Search<span class="material-icons">search</span>
+</button>
+</div>
+
+<div class="Grid">
+  @if(recipes !== null)
+  {
+    <div>
+      @if(recipes.length > 0){
+        <div class="Cards">
+          @for (recipe of recipes; track recipe) {
+            <app-main-card [recipeTitle]="recipe.title" [imageUrl]="recipe.image" [recipeId]="recipe.id"/>
+          }
+        </div>
+      }
+    </div>
+  } @else {
+      <div class="EmptyCard">
+        <h1>No recipes found!</h1>
+        <span>Please search again</span>
+      </div>
+  }
+</div>

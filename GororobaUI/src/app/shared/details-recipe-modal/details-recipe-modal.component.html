@@ -1,0 +1,43 @@
+<div class="ModalContainer">
+  @if (loading) {
+    <div class="Loading">
+      <p>Loading recipe details...</p>
+      <span class="material-icons spin">progress_activity</span>
+    </div>
+  } @else {
+    @if (recipe) {
+      <div class="ContentClass">
+        <h3>{{ recipe.title }}</h3>
+        <img [src]="recipe.image" alt="Image" />
+        <div class="BasicInfos">
+          <span>Prep time: {{ recipe.readyInMinutes }} min</span>
+          @if (recipe.cookingMinutes != null) {
+            <span>Cooking time: {{ recipe.cookingMinutes }} min</span>
+          }
+          <span>Servings: {{ recipe.servings }}</span>
+        </div>
+
+        <p class="Sumarry" [innerHTML]="recipe.summary"></p>
+
+        <div class="MainContent">
+          <div class="Ingredients">
+            <span>Ingredients:</span>
+            <ul>
+              @for (ing of recipe.extendedIngredients; track ing.original) {
+                <li>{{ ing.original }}</li>
+              }
+            </ul>
+          </div>
+          <div class="Instructions">
+            <span>Instructions:</span>
+            <div [innerHTML]="recipe.instructions"></div>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="EmptyCard">
+        <h1>Recipe not found</h1>
+      </div>
+    }
+  }
+</div>
