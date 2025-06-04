@@ -18,7 +18,7 @@ namespace GororobaAPI.Services
         public async Task<List<RecipesSearchDto>> GetRecipesByIngredient(string ingredient)
         {
             var apiKey = _config["SpoonacularApi:ApiKey"];
-            var url = $"https://api.spoonacular.com/recipes/complexSearch?apiKey={apiKey}&query={ingredient}&number=2";
+            var url = $"https://api.spoonacular.com/recipes/complexSearch?apiKey={apiKey}&query={ingredient}&number=9";
 
             var response = await _httpClient.GetAsync(url);
 
